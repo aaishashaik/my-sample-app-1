@@ -1,0 +1,29 @@
+name: Develop Branch Tasks Workflow
+
+# Trigger workflow on push to develop branch
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  # First job: Prepare environment
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Prepare Step
+        run: echo "Job Prepare: Setting up environment"
+
+  # Second job: Run tasks (only if Prepare succeeds)
+  execute:
+    runs-on: ubuntu-latest
+    needs: prepare
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Execute Step
+        run: echo "Job Execute: Running tasks because Prepare succeeded"
